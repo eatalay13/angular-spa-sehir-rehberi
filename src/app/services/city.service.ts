@@ -18,10 +18,14 @@ export class CityService {
   }
 
   getCityById(cityId: number): Observable<City> {
-    return this.http.get<City>(this.path + 'cities/' + cityId);
+    return this.http.get<City>(this.path + 'cities/detail?cityId=' + cityId);
   }
 
   getPhotosByCity(cityId: number): Observable<Photo[]> {
-    return this.http.get<Photo[]>(this.path + 'cities/photos/?cityId=' + cityId);
+    return this.http.get<Photo[]>(this.path + 'cities/photos?cityId=' + cityId);
+  }
+
+  add(city: City) {
+    this.http.post(this.path + 'city', city).subscribe();
   }
 }
