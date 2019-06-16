@@ -3,13 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { City } from '../models/city';
 import { Photo } from '../models/photo';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private alertifyService: AlertifyService,
+    private router: Router
+  ) { }
 
   path = 'https://localhost:44330/api/';
 
@@ -26,6 +32,9 @@ export class CityService {
   }
 
   add(city: City) {
-    this.http.post(this.path + 'cities', city).subscribe();
+    this.http.post<City>(this.path + 'cities', city).subscribe(data => {
+      this.alertifyService.success(data.name + ' şehri başarıyla eklendi.');
+      this.router.navigateByUrl('cityDetail/' + data.id);
+    });
   }
 }

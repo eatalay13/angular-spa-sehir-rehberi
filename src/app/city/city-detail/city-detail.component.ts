@@ -19,8 +19,8 @@ export class CityDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.getCityById(params['cityId']);
-      this.getPhotosByCityId(params['cityId']);
+      this.getCityById(params.cityId);
+      this.getPhotosByCityId(params.cityId);
     });
   }
 
