@@ -1,23 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { City } from '../models/city';
 import { Photo } from '../models/photo';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { Router } from '@angular/router';
+import { ServiceBase } from './service.base';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CityService {
+export class CityService extends ServiceBase {
 
   constructor(
     private http: HttpClient,
     private alertifyService: AlertifyService,
     private router: Router
-  ) { }
-
-  path = 'https://localhost:44330/api/';
+  ) {
+    super();
+  }
 
   getCities(): Observable<City[]> {
     return this.http.get<City[]>(this.path + 'cities');
